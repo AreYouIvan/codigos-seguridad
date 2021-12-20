@@ -21,18 +21,18 @@ class ClassState extends React.Component {
   //   console.log("componentWillMount");
   // }
 
-  componentDidUpdate(){
-    console.log('actualizacion')
-    
-     if (!!this.state.loading) {
-       setTimeout(() => {
-         console.log("Haciendo la validacion");
+  componentDidUpdate() {
+    console.log("actualizacion");
 
-         this.setState({ loading: false });
+    if (!!this.state.loading) {
+      setTimeout(() => {
+        console.log("Haciendo la validacion");
 
-         console.log("🥴Terminando la validacion");
-       }, 1500);
-     }
+        this.setState({ loading: false });
+
+        console.log("🥴Terminando la validacion");
+      }, 1500);
+    }
   }
 
   render() {
@@ -49,7 +49,6 @@ class ClassState extends React.Component {
       </div>
     );
   }
-
 }
 
 export { ClassState };
