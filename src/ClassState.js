@@ -25,11 +25,11 @@ class ClassState extends React.Component {
   // }
 
   componentDidUpdate() {
-    console.log("actualizacion");
+    // console.log("actualizacion");
 
     if (!!this.state.loading) {
       setTimeout(() => {
-        console.log("Haciendo la validacion");
+        // console.log("Haciendo la validacion");
 
         if(SECURITY_CODE === this.state.value) {
           this.setState({ 
@@ -42,7 +42,7 @@ class ClassState extends React.Component {
             loading: false,
           });
         }
-        console.log("🥴Terminando la validacion");
+        // console.log("🥴Terminando la validacion");
       }, 1500);
     }
   }
