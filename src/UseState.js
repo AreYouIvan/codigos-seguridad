@@ -4,57 +4,80 @@ const SECURITY_CODE = "paradigma";
 // Como actualizar el estado???
 function UseState({ name }) {
   // Por convención decidimos llamarlo State.
-  const [error, setError] = React.useState(false);
-  const [value, setValue] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+
+  const [state, setState] = React.useState({
+    value: "",
+    error: false,
+    loading: false,
+  });
+
+  console.log(state)
+
+// El spread operator es: Todo lo que venia en el array/objeto antes, se lo vamos a incluir a la actualizacion.!! const arr = [...array]
 
   React.useEffect(() => {
     console.log("Empezando Effect");
-    if (!!loading) {
+    if (!!state.loading) {
       // Cambiando el estado antes de llamar al API 1era forma de actualizar el estado.
-      setError(false)
+      setState({
+        ...state,
+        error: false,
+      });
       setTimeout(() => {
         console.log("Haciendo la validacion");
-        if (value !== SECURITY_CODE) {
-          setError(true);
+        console.log('Error:'+ state.value)
+        if (state.value !== SECURITY_CODE) {
+          setState({
+            ...state,
+            error: true,
+            loading: false,
+          });
+
         } else {
-          setError(false);
+
+          setState({
+            ...state,
+            error: false,
+            loading: false,
+          });
+
         }
-        setLoading(false);
+
 
         console.log("🥴Terminando la validacion");
       }, 1500);
     }
 
     console.log("Terminando Effect");
-  }, [loading]);
+  }, [state.loading]);
 
   return (
     <div>
       <h2>Eliminar {name}</h2>
       <p>Por favor, escribe el código de seguridad.</p>
-      {/* Realizando la validacion sin cambiar el estado, aunque tiene un pequeño bug.
-      El estado de error no cambia realmente. */}
-      {/* {(error && !loading) && (
-        <p>Error: El código es incorrecto.</p>)} */}
-      {error && (
-        <p>Error: El código es incorrecto.</p>)}
-      {loading && (
-         <p>Loading...</p>
-          )}
-      
+      {state.error && <p>Error: El código es incorrecto.</p>}
+      {state.loading && <p>Loading...</p>}
+
       <input
         placeholder="Código de Seguridad"
-        value={value}
+        value={state.value}
         onChange={(event) => {
-          setValue(event.target.value);
+          setState({
+            ...state,
+            value: event.target.value,
+          });
         }}
-      />   
-      <button onClick={() => {
-        setLoading(true);
-        // Cambiando el estado al dar click en el boton.
-        // setError(false)
-      }}>Comprobar</button>
+      />
+      <button
+        onClick={() => {
+          setState({
+            ...state,
+            loading: true,
+          });
+        }}
+      >
+        Comprobar
+      </button>
     </div>
   );
 }
